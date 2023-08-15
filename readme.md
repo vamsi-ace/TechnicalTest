@@ -2,6 +2,7 @@
 Explanation of folders and files:
 
 ReactApplication/: The root directory of the project.
+
     CodingProblem1/:
         makePasswordStrong.js: includes the code for the first coding problem
     CodingProblem2/:

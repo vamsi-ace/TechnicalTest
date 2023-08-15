@@ -25,14 +25,9 @@ const resultSchema = new mongoose.Schema({
 const Result = mongoose.model('Result', resultSchema);
 
 app.get('/', ( req, res ) =>{
-    console.log('hello');
     res.status(201).json({
-        status:'success',
-        message:'ues',
-        data:{
-            obj:{ a:1 }
-        }
-    })
+        message:'Hello from the server',
+    });
 });
 
 app.post('/saveResult', async (req, res) => {

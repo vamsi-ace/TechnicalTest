@@ -3,14 +3,16 @@ import './App.css';
 import axios from 'axios';
 
 function App() {
+  // State for the input value, results, and saved message
   const [inputValue, setInputValue] = useState('');
   const [results, setResults] = useState('');
   const [savedMessage, setSavedMessage] = useState('');
- //
+ 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
+  // function to calculate the min steps required to make the password strong
   const minStepsToStrongPassword = (password) => {
     var s = password;
     var requiredChar = GetRequiredChar(s);
@@ -65,10 +67,11 @@ const GetRequiredChar = (s) => {
 };
 
   const calculateResults = async () => {
-    // Perform your calculations here based on the inputValue
+    // make the function call and convert it into string, since we used string instead of number for the state
     const calculatedResult = Math.floor(minStepsToStrongPassword(inputValue)).toString();
+    
     setResults([...results, { input: inputValue, output: calculatedResult }]);
-    // Save the result to the database
+    // Update the state to display the latest result at the top of the grid
 
     try {
       await axios.post('http://localhost:5000/saveResult', {
@@ -83,16 +86,20 @@ const GetRequiredChar = (s) => {
       setSavedMessage('Result saved successfully');
     } catch (error) {
       console.error('Error saving result:', error);
+      
       setSavedMessage('Error saving result');
     }
   };
 
-  // Fetch all results from the database when the component mounts
+  // Fetch all results from the database when the component mounts 
   useEffect(() => {
     async function fetchResults() {
       try {
+        // Make a GET request to the server to retrieve all results from the database
         const response = await axios.get('http://localhost:5000/getAllResults');
-        // console.log('Fetched results:', response.data);
+        
+        console.log('Fetched results:', response.data);
+        
         setResults(response.data);
       } catch (error) {
         console.error('Error fetching results:', error);

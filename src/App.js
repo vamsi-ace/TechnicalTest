@@ -78,7 +78,7 @@ const GetRequiredChar = (s) => {
         input: inputValue,
         output: calculatedResult,
       }, 
-      {
+      { // specify the options to make the content as json 
         headers: {
         'Content-Type': 'application/json',
       },
